@@ -20,3 +20,23 @@ class Link:
         
 a = Link(1,Link(2,Link(3)))
 
+def map(lnk,f):
+    link = lnk
+    while link:
+        link.first = f(link.first)
+        link = link.rest
+    return lnk
+
+def sumation(lnk,f):
+    lnk = map(lnk,f)
+    link = lnk
+    result = 0
+    while link:
+        result += link.first
+        link = link.rest
+    return result
+a = sumation(a,lambda x:x**2)
+print(a) 
+
+
+
