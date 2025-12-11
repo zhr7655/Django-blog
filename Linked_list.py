@@ -5,6 +5,17 @@ class Link:
             assert isinstance(rest,Link)
         self.first = first
         self.rest = rest
+
+    def len(self):
+        length = 0
+        lnk = self
+        while lnk:
+            length += 1
+            lnk = lnk.rest
+        return length
+
+
+
         
     def __repr__(self):
         if self.rest:
@@ -36,7 +47,7 @@ def sumation(lnk,f):
         link = link.rest
     return result
 
-def resverse(lnk):
+def reverse(lnk):
     lnk1 = lnk
     lnk2 = lnk.rest
     lnk1.rest = None
@@ -46,4 +57,5 @@ def resverse(lnk):
         lnk2 = lnk2.rest
         lnk1.rest = lnk3
     return lnk1
+
 
