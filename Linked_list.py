@@ -35,8 +35,15 @@ def sumation(lnk,f):
         result += link.first
         link = link.rest
     return result
-a = sumation(a,lambda x:x**2)
-print(a) 
 
-
+def resverse(lnk):
+    lnk1 = lnk
+    lnk2 = lnk.rest
+    lnk1.rest = None
+    while lnk2:
+        lnk3 = lnk1
+        lnk1 = lnk2
+        lnk2 = lnk2.rest
+        lnk1.rest = lnk3
+    return lnk1
 
