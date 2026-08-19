@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>学生成绩管理系统</title>
+    <style>
+        table { border-collapse: collapse; width: 50%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+<body>
+    <h1>学生成绩管理系统</h1>
+
+    <form action="/add" method="post">
+        <label>姓名：<input type="text" name="name" required></label>
+        <label>成绩：<input type="number" name="score" step="0.1" min="0" max="100" required></label>
+        <button type="submit">添加</button>
+    </form>
+
+    <hr>
+
+    <h2>学生列表</h2>
+    {% if grades %}
+    <table>
+        <tr>
+            <th>序号</th>
+            <th>姓名</th>
+            <th>成绩</th>
+        </tr>
+        {% for s in grades %}
+        <tr>
+        <td>{{loop.index}}</td>
+        <td>{{s["姓名"]}}</td>
+        <td>
+            <span class="score-text">{{s["成绩"]}}</span>
+            <input type="number" class="score-input" value="{{s['成绩']}}" style="display: none;" step="0.1" min="0" max="100">
+        </td>
+
+        <td>
+            <button class="edit-btn" >编辑</button>
+            <button class="save-btn" style="display: none;" data-url="{{url_for('update',name=s['姓名'])}}" >保存</button>
+            <button class="cancel-btn" style="display: none;">取消</button>
+        </td>
+        <td><a href="/delete/{{ s['姓名'] }}">删除</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>暂无学生数据</p>
+    {% endif %}
+
+    {% if avg is not none %}
+    <p>平均成绩：{{ "%.2f"|format(avg) }}</p>
+    {% endif %}
+    <p>最高成绩：{{top}}</p>
+    <p>最低成绩：{{min}}</p>
+
+</body>
+</html>
